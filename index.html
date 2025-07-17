@@ -1,13 +1,28 @@
-{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jungle Horror CYOA</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; max-width: 600px; margin: auto; }
+  #story { margin-bottom: 20px; white-space: pre-line; }
+  button { display: block; margin: 10px 0; padding: 10px; width: 100%; font-size: 16px; cursor: pointer; background: #222; color: #eee; border: none; border-radius: 5px; }
+  button:hover { background: #333; }
+  #stepCounter { margin-bottom: 10px; font-weight: bold; font-size: 1.1em; }
+</style>
+</head>
+<body>
+
+<h1>Jungle Horror CYOA</h1>
+<div id="stepCounter"></div>
+<div id="story"></div>
+<div id="choices"></div>
+
+<script>
+const story = {
   "1": {
     "text": "The plane screams as it tears through the sky. A thunderous jolt, screaming metal, then darkness. You wake, alone. Flames devour the wreck. Everyone else is dead.",
-    "choices": [
-      { "text": "Run downhill toward the jungle.", "next": "3" },
-      { "text": "Go back for the black box.", "next": "death_2" }
-    ]
-  },
-  "2": {
-    "text": "You crawl past scorched bodies and leap from the wreckage. The plane explodes behind you.",
     "choices": [
       { "text": "Run downhill toward the jungle.", "next": "3" },
       { "text": "Go back for the black box.", "next": "death_2" }
@@ -318,4 +333,52 @@
     "text": "The approaching car isn’t human — it has teeth and hunger.",
     "choices": []
   }
+};
+
+let currentStep = "1";
+
+function showStep(stepId) {
+  const step = story[stepId];
+  if (!step) {
+    document.getElementById('story').textContent = "Story step not found.";
+    document.getElementById('choices').innerHTML = "";
+    return;
+  }
+
+  if (stepId.startsWith("death_")) {
+    document.getElementById('stepCounter').textContent = "You Died!";
+  } else {
+    document.getElementById('stepCounter').textContent = `Step ${stepId} of 30`;
+  }
+
+  document.getElementById('story').textContent = step.text;
+
+  const choicesDiv = document.getElementById('choices');
+  choicesDiv.innerHTML = "";
+
+  if (step.choices.length === 0) {
+    const btn = document.createElement("button");
+    btn.textContent = "Restart";
+    btn.onclick = () => {
+      currentStep = "1";
+      showStep(currentStep);
+    };
+    choicesDiv.appendChild(btn);
+  } else {
+    step.choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.textContent = choice.text;
+      btn.onclick = () => {
+        currentStep = choice.next;
+        showStep(currentStep);
+      };
+      choicesDiv.appendChild(btn);
+    });
+  }
 }
+
+showStep(currentStep);
+</script>
+
+</body>
+</html>

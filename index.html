@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Choose Your Own Adventure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    #story-text {
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      min-height: 100px;
+    }
+    button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #restart-btn {
+      margin-top: 30px;
+      background-color: #28a745;
+    }
+    #restart-btn:hover {
+      background-color: #1e7e34;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose Your Own Adventure</h1>
+  <div id="story-text"></div>
+  <div id="choices"></div>
+  <button id="restart-btn" style="display:none;">Restart</button>
+
+  <script>
+    const story = {
+      "start": {
+        "text": "You wake up in a dark forest. Two paths lie ahead.",
+        "choices": [
+          {"text": "Take the left path", "next": "left_path"},
+          {"text": "Take the right path", "next": "right_path"}
+        ]
+      },
+      "left_path": {
+        "text": "You meet a wise old man. He offers you a gift.",
+        "choices": [
+          {"text": "Accept the gift", "next": "gift_accepted"},
+          {"text": "Decline and walk away", "next": "gift_declined"}
+        ]
+      },
+      "right_path": {
+        "text": "A wild beast blocks your way.",
+        "choices": [
+          {"text": "Fight the beast", "next": "fight_beast"},
+          {"text": "Run away", "next": "run_away"}
+        ]
+      },
+      "gift_accepted": {
+        "text": "The gift gives you powers. You live happily ever after. THE END.",
+        "choices": []
+      },
+      "gift_declined": {
+        "text": "The old man curses you. You turn into a tree. THE END.",
+        "choices": []
+      },
+      "fight_beast": {
+        "text": "You defeat the beast and find treasure. THE END.",
+        "choices": []
+      },
+      "run_away": {
+        "text": "You escape safely but empty-handed. THE END.",
+        "choices": []
+      }
+    };
+
+    let currentNode = "start";
+
+    function renderNode(nodeKey) {
+      const node = story[nodeKey];
+      const storyTextDiv = document.getElementById("story-text");
+      const choicesDiv = document.getElementById("choices");
+      const restartBtn = document.getElementById("restart-btn");
+
+      storyTextDiv.textContent = node.text;
+      choicesDiv.innerHTML = "";
+
+      if (node.choices.length === 0) {
+        // End node
+        restartBtn.style.display = "block";
+      } else {
+        restartBtn.style.display = "none";
+        node.choices.forEach(choice => {
+          const btn = document.createElement("button");
+          btn.textContent = choice.text;
+          btn.onclick = () => {
+            currentNode = choice.next;
+            renderNode(currentNode);
+          };
+          choicesDiv.appendChild(btn);
+        });
+      }
+    }
+
+    document.getElementById("restart-btn").onclick = () => {
+      currentNode = "start";
+      renderNode(currentNode);
+    };
+
+    // Start the story
+    renderNode(currentNode);
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+    "start": {
+      "text": "You wake up in a dark forest. Two paths lie ahead.",
+      "choices": [
+        {"text": "Take the left path", "next": "left_path"},
+        {"text": "Take the right path", "next": "right_path"}
+      ]
+    },
+    "left_path": {
+      "text": "You meet a wise old man. He offers you a gift.",
+      "choices": [
+        {"text": "Accept the gift", "next": "gift_accepted"},
+        {"text": "Decline and walk away", "next": "gift_declined"}
+      ]
+    },
+    "right_path": {
+      "text": "A wild beast blocks your way.",
+      "choices": [
+        {"text": "Fight the beast", "next": "fight_beast"},
+        {"text": "Run away", "next": "run_away"}
+      ]
+    },
+    "gift_accepted": {
+      "text": "The gift gives you powers. You live happily ever after. THE END.",
+      "choices": []
+    },
+    "gift_declined": {
+      "text": "The old man curses you. You turn into a tree. THE END.",
+      "choices": []
+    },
+    "fight_beast": {
+      "text": "You defeat the beast and find treasure. THE END.",
+      "choices": []
+    },
+    "run_away": {
+      "text": "You escape safely but empty-handed. THE END.",
+      "choices": []
+    }
+  }
+  

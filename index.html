@@ -1,133 +1,321 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Choose Your Own Adventure</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background: #f4f4f9;
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-    }
-    #story-text {
-      margin-bottom: 20px;
-      font-size: 1.2em;
-      min-height: 100px;
-    }
-    button {
-      display: block;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 1em;
-      width: 100%;
-      cursor: pointer;
-      border-radius: 5px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #restart-btn {
-      margin-top: 30px;
-      background-color: #28a745;
-    }
-    #restart-btn:hover {
-      background-color: #1e7e34;
-    }
-  </style>
-</head>
-<body>
-  <h1>Choose Your Own Adventure</h1>
-  <div id="story-text"></div>
-  <div id="choices"></div>
-  <button id="restart-btn" style="display:none;">Restart</button>
-
-  <script>
-    const story = {
-      "start": {
-        "text": "You wake up in a dark forest. Two paths lie ahead.",
-        "choices": [
-          {"text": "Take the left path", "next": "left_path"},
-          {"text": "Take the right path", "next": "right_path"}
-        ]
-      },
-      "left_path": {
-        "text": "You meet a wise old man. He offers you a gift.",
-        "choices": [
-          {"text": "Accept the gift", "next": "gift_accepted"},
-          {"text": "Decline and walk away", "next": "gift_declined"}
-        ]
-      },
-      "right_path": {
-        "text": "A wild beast blocks your way.",
-        "choices": [
-          {"text": "Fight the beast", "next": "fight_beast"},
-          {"text": "Run away", "next": "run_away"}
-        ]
-      },
-      "gift_accepted": {
-        "text": "The gift gives you powers. You live happily ever after. THE END.",
-        "choices": []
-      },
-      "gift_declined": {
-        "text": "The old man curses you. You turn into a tree. THE END.",
-        "choices": []
-      },
-      "fight_beast": {
-        "text": "You defeat the beast and find treasure. THE END.",
-        "choices": []
-      },
-      "run_away": {
-        "text": "You escape safely but empty-handed. THE END.",
-        "choices": []
-      }
-    };
-
-    let currentNode = "start";
-
-    function renderNode(nodeKey) {
-      const node = story[nodeKey];
-      const storyTextDiv = document.getElementById("story-text");
-      const choicesDiv = document.getElementById("choices");
-      const restartBtn = document.getElementById("restart-btn");
-
-      storyTextDiv.textContent = node.text;
-      choicesDiv.innerHTML = "";
-
-      if (node.choices.length === 0) {
-        // End node
-        restartBtn.style.display = "block";
-      } else {
-        restartBtn.style.display = "none";
-        node.choices.forEach(choice => {
-          const btn = document.createElement("button");
-          btn.textContent = choice.text;
-          btn.onclick = () => {
-            currentNode = choice.next;
-            renderNode(currentNode);
-          };
-          choicesDiv.appendChild(btn);
-        });
-      }
-    }
-
-    document.getElementById("restart-btn").onclick = () => {
-      currentNode = "start";
-      renderNode(currentNode);
-    };
-
-    // Start the story
-    renderNode(currentNode);
-  </script>
-</body>
-</html>
+{
+  "1": {
+    "text": "The plane screams as it tears through the sky. A thunderous jolt, screaming metal, then darkness. You wake, alone. Flames devour the wreck. Everyone else is dead.",
+    "choices": [
+      { "text": "Run downhill toward the jungle.", "next": "3" },
+      { "text": "Go back for the black box.", "next": "death_2" }
+    ]
+  },
+  "2": {
+    "text": "You crawl past scorched bodies and leap from the wreckage. The plane explodes behind you.",
+    "choices": [
+      { "text": "Run downhill toward the jungle.", "next": "3" },
+      { "text": "Go back for the black box.", "next": "death_2" }
+    ]
+  },
+  "3": {
+    "text": "Smoke fills your lungs. Trees close in around you. Something is watching. You hear nothing but your breath.",
+    "choices": [
+      { "text": "Follow a narrow animal path.", "next": "4" },
+      { "text": "Climb a tree to scout.", "next": "death_3" }
+    ]
+  },
+  "4": {
+    "text": "You stop to rest and drink from a leaf. A strange symbol is now seared onto your forearm.",
+    "choices": [
+      { "text": "Ignore it and move on.", "next": "5" },
+      { "text": "Touch it.", "next": "death_4" }
+    ]
+  },
+  "5": {
+    "text": "A child's laugh echoes. A stuffed bear lies in the dirt, eyes gouged.",
+    "choices": [
+      { "text": "Walk away, don’t look back.", "next": "6" },
+      { "text": "Pick up the bear.", "next": "death_5" }
+    ]
+  },
+  "6": {
+    "text": "Glowing eyes blink in the dark. They do not flinch when you scream.",
+    "choices": [
+      { "text": "Back away slowly.", "next": "7" },
+      { "text": "Run.", "next": "death_6" }
+    ]
+  },
+  "7": {
+    "text": "You find a fruit tree. Your stomach growls. One fruit looks unusually red.",
+    "choices": [
+      { "text": "Eat the yellow one.", "next": "8" },
+      { "text": "Eat the red one.", "next": "death_7" }
+    ]
+  },
+  "8": {
+    "text": "You find a still pool. Your reflection whispers in your voice.",
+    "choices": [
+      { "text": "Walk around the pool.", "next": "9" },
+      { "text": "Touch the water.", "next": "death_8" }
+    ]
+  },
+  "9": {
+    "text": "A totem made of bones blocks the path. Flies buzz. The skulls watch.",
+    "choices": [
+      { "text": "Step around it.", "next": "10" },
+      { "text": "Knock it over.", "next": "death_9" }
+    ]
+  },
+  "10": {
+    "text": "You step near a mossy patch — it gives way. Below is a spiked pit.",
+    "choices": [
+      { "text": "Skirt the edge.", "next": "11" },
+      { "text": "Step on the moss.", "next": "death_10" }
+    ]
+  },
+  "11": {
+    "text": "One tree wails like a dying man. Its bark bleeds.",
+    "choices": [
+      { "text": "Keep walking.", "next": "12" },
+      { "text": "Touch the bark.", "next": "death_11" }
+    ]
+  },
+  "12": {
+    "text": "A rope bridge sways over a gorge. It looks old.",
+    "choices": [
+      { "text": "Crawl across slowly.", "next": "13" },
+      { "text": "Run across.", "next": "death_12" }
+    ]
+  },
+  "13": {
+    "text": "A doll made of teeth sits on a stone. It has your eyes.",
+    "choices": [
+      { "text": "Close your eyes and walk past.", "next": "14" },
+      { "text": "Pick it up.", "next": "death_13" }
+    ]
+  },
+  "14": {
+    "text": "Bones scattered in a circle. Flies buzz in a rhythmic hum.",
+    "choices": [
+      { "text": "Step outside the circle.", "next": "15" },
+      { "text": "Step inside.", "next": "death_14" }
+    ]
+  },
+  "15": {
+    "text": "A wooden house by a river. Its windows are black, the door ajar.",
+    "choices": [
+      { "text": "Knock first, then enter.", "next": "16" },
+      { "text": "Rush inside.", "next": "death_15" }
+    ]
+  },
+  "16": {
+    "text": "A room of mirrors. You see yourself — then another version, smiling.",
+    "choices": [
+      { "text": "Smash the mirror.", "next": "17" },
+      { "text": "Reach out to touch.", "next": "death_16" }
+    ]
+  },
+  "17": {
+    "text": "The river is calm, too calm. A boat floats nearby.",
+    "choices": [
+      { "text": "Test the boat before boarding.", "next": "18" },
+      { "text": "Jump in.", "next": "death_17" }
+    ]
+  },
+  "18": {
+    "text": "A woman sings by the riverbank. Her back is turned.",
+    "choices": [
+      { "text": "Hide and watch.", "next": "19" },
+      { "text": "Approach her.", "next": "death_18" }
+    ]
+  },
+  "19": {
+    "text": "A dense white fog rolls in. Shapes move inside it.",
+    "choices": [
+      { "text": "Stay still.", "next": "20" },
+      { "text": "Walk into it.", "next": "death_19" }
+    ]
+  },
+  "20": {
+    "text": "A man swings from a tree by vines. His eyes open.",
+    "choices": [
+      { "text": "Don’t look up.", "next": "21" },
+      { "text": "Look into his eyes.", "next": "death_20" }
+    ]
+  },
+  "21": {
+    "text": "Two posts made of skulls mark a path.",
+    "choices": [
+      { "text": "Take the longer detour path.", "next": "22" },
+      { "text": "Walk through the gate.", "next": "death_21" }
+    ]
+  },
+  "22": {
+    "text": "You circle back to the river. The water is black now.",
+    "choices": [
+      { "text": "Follow the riverbank.", "next": "23" },
+      { "text": "Swim across.", "next": "death_22" }
+    ]
+  },
+  "23": {
+    "text": "A camp. Tents, gear, no people. Something wrong.",
+    "choices": [
+      { "text": "Take a map and leave.", "next": "24" },
+      { "text": "Enter the main tent.", "next": "death_23" }
+    ]
+  },
+  "24": {
+    "text": "A carved message on a tree: “TURN BACK OR BE HUNTED.”",
+    "choices": [
+      { "text": "Keep going.", "next": "25" },
+      { "text": "Stop and rest.", "next": "death_24" }
+    ]
+  },
+  "25": {
+    "text": "A blood-curdling howl from deep inside the forest.",
+    "choices": [
+      { "text": "Hide and hold your breath.", "next": "26" },
+      { "text": "Run.", "next": "death_25" }
+    ]
+  },
+  "26": {
+    "text": "A wooden trapdoor in the mud. Blood stains around it.",
+    "choices": [
+      { "text": "Bury it deeper and walk on.", "next": "27" },
+      { "text": "Open it.", "next": "death_26" }
+    ]
+  },
+  "27": {
+    "text": "You hear traffic. Civilization. A slope leads up.",
+    "choices": [
+      { "text": "Climb slowly, carefully.", "next": "28" },
+      { "text": "Run up yelling.", "next": "death_27" }
+    ]
+  },
+  "28": {
+    "text": "You see the highway through the trees. One last barrier — thorns.",
+    "choices": [
+      { "text": "Crawl through.", "next": "29" },
+      { "text": "Charge through.", "next": "death_28" }
+    ]
+  },
+  "29": {
+    "text": "You wave at distant headlights. The car slows.",
+    "choices": [
+      { "text": "Collapse in front of it.", "next": "30" },
+      { "text": "Step into the road.", "next": "death_29" }
+    ]
+  },
+  "30": {
+    "text": "Arms lift you. Sirens wail. You are safe. The jungle watches silently as you leave.",
+    "choices": []
+  },
+  "death_2": {
+    "text": "You’re blown apart in the second explosion. The jungle falls silent as your body burns.",
+    "choices": []
+  },
+  "death_3": {
+    "text": "A snake bites your hand. You fall and die on impact. Darkness swallows you.",
+    "choices": []
+  },
+  "death_4": {
+    "text": "Your body seizes. A spirit enters. You collapse, lifeless on the jungle floor.",
+    "choices": []
+  },
+  "death_5": {
+    "text": "Tiny hands claw at your face. You’re dragged into the earth. Your screams fade underground.",
+    "choices": []
+  },
+  "death_6": {
+    "text": "You trip and hit your head. Silence envelopes you forever.",
+    "choices": []
+  },
+  "death_7": {
+    "text": "You vomit blood until you choke. The jungle swallows your last breath.",
+    "choices": []
+  },
+  "death_8": {
+    "text": "The water pulls you under. You never surface again.",
+    "choices": []
+  },
+  "death_9": {
+    "text": "Screams fill your head. You claw your eyes out in agony.",
+    "choices": []
+  },
+  "death_10": {
+    "text": "You fall into the spiked pit, impaled instantly.",
+    "choices": []
+  },
+  "death_11": {
+    "text": "The tree’s bark wraps around you and digests you slowly.",
+    "choices": []
+  },
+  "death_12": {
+    "text": "The rope snaps. You fall into darkness, bones shattering.",
+    "choices": []
+  },
+  "death_13": {
+    "text": "Your vision fades as your teeth loosen and fall out one by one.",
+    "choices": []
+  },
+  "death_14": {
+    "text": "You freeze in place, trapped forever inside the bone circle.",
+    "choices": []
+  },
+  "death_15": {
+    "text": "You fall through rotten floorboards onto sharp spikes below.",
+    "choices": []
+  },
+  "death_16": {
+    "text": "The mirror pulls you inside, replacing you with a sinister reflection.",
+    "choices": []
+  },
+  "death_17": {
+    "text": "Leeches cover your skin. You scream as you drown beneath the water.",
+    "choices": []
+  },
+  "death_18": {
+    "text": "The eyeless woman screams your soul away into the jungle darkness.",
+    "choices": []
+  },
+  "death_19": {
+    "text": "You vanish into the fog, your screams echoing forever.",
+    "choices": []
+  },
+  "death_20": {
+    "text": "You see your death in his eyes — then live it in full horror.",
+    "choices": []
+  },
+  "death_21": {
+    "text": "The skull gate bites and tears you apart.",
+    "choices": []
+  },
+  "death_22": {
+    "text": "Hands drag you under the black river water. You drown silently.",
+    "choices": []
+  },
+  "death_23": {
+    "text": "Your skin peels off like paper inside the main tent.",
+    "choices": []
+  },
+  "death_24": {
+    "text": "You never wake up after resting beneath the cursed tree.",
+    "choices": []
+  },
+  "death_25": {
+    "text": "The creature finds you. You disappear into the forest without a trace.",
+    "choices": []
+  },
+  "death_26": {
+    "text": "Something pulls you into the trapdoor — darkness swallows you whole.",
+    "choices": []
+  },
+  "death_27": {
+    "text": "You trip climbing the slope. Your neck snaps with a sick crack.",
+    "choices": []
+  },
+  "death_28": {
+    "text": "Thorns rip your flesh apart. You bleed out under the moonlight.",
+    "choices": []
+  },
+  "death_29": {
+    "text": "The approaching car isn’t human — it has teeth and hunger.",
+    "choices": []
+  }
+}
